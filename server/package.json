@@ -2,12 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Application Server",
-  "main": "src/app.ts",
+  "main": "src/main.ts",
   "author": "Ahmet Emrebas",
   "license": "MIT",
   "scripts": {
     "test": "jasmine-ts --reporter=jasmine-ts-console-reporter --config=./jasmine.json",
-    "start:dev": "nodemon ./src/app.ts",
+    "start:dev": "nodemon ./src/main.ts",
     "lint": "prettier --check ./src",
     "format": "prettier --write ./src"
   },
