@@ -7,7 +7,12 @@ export interface IController {
   methods?: {
     [key: string]: {
       path: string;
-      args: { paramIndex: number; key: any; type: 'query' | 'params'; value: any }[];
+      args: {
+        paramIndex: number;
+        key: any;
+        type: 'query' | 'params' | 'cookies';
+        value: any;
+      }[];
     };
   };
 }
