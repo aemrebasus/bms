@@ -1,88 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <title>Business Management Application Server</title>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/x-icon" href="https://loopback.io/favicon.ico">
-
-  <style>
-    h3 {
-      margin-left: 25px;
-      text-align: center;
-    }
-
-    a, a:visited {
-      color: #3f5dff;
-    }
-
-    h3 a {
-      margin-left: 10px;
-    }
-
-    a:hover, a:focus, a:active {
-      color: #001956;
-    }
-
-    .power {
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .info {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%)
-    }
-
-    .info h1 {
-      text-align: center;
-      margin-bottom: 0;
-    }
-
-    .info p {
-      text-align: center;
-      margin-bottom: 3em;
-      margin-top: 1em;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: rgb(29, 30, 32);
-        color: white;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body,
+      html {
+        margin: 0px;
+      }
+      .card {
+        background-color: rgb(92, 122, 83);
+        width: 100%;
+        height: 100vh;
       }
 
-      a, a:visited {
-        color: #4990e2;
+      .center {
+        margin: auto;
       }
 
-      a:hover, a:focus, a:active {
-        color: #2b78ff;
+      .flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
-    }
-  </style>
-</head>
+      a {
+        padding: 4px;
+        border: 1px solid royalblue;
+        border-radius: 10px;
+        min-width: 300px;
+        margin: 3px;
+        text-align: center;
+        background-color: rgb(124, 248, 52);
+        color: royalblue;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+          'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        transition: all ease-in-out 400ms;
+      }
 
-<body>
-  <div class="info">
-    <h1>server</h1>
-    <p>Version 1.0.0</p>
-
-    <h3>OpenAPI spec: <a href="/openapi.json">/openapi.json</a></h3>
-    <h3>API Explorer: <a href="/explorer">/explorer</a></h3>
-  </div>
-
-  <footer class="power">
-    <a href="https://loopback.io" target="_blank">
-      <img src="https://loopback.io/images/branding/powered-by-loopback/blue/powered-by-loopback-sm.png" />
-    </a>
-  </footer>
-</body>
-
+      a:hover {
+        background-color: rgb(255, 255, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card center flex">
+      <a href="/api">Swagger UI</a>
+      <a href="/api-json">OpenAPI - JSON</a>
+    </div>
+  </body>
 </html>
