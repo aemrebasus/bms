@@ -5,8 +5,8 @@ import {
   ArrayNotEmpty,
   IsAlphanumeric,
   IsAlpha,
-  IsLowercase,
   IsString,
+  IsEmpty,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -85,4 +85,7 @@ export class CreateUserDto {
   @IsAlphanumeric()
   @Length(3, 255)
   organization: string;
+
+  @IsEmpty()
+  active: boolean;
 }

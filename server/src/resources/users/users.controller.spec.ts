@@ -24,7 +24,7 @@ describe('UsersController', () => {
 
   it('should throw NotFoundException', async () => {
     try {
-      await controller.findById(500);
+      await controller.findById(9999999);
       expect(true).toBe(false);
     } catch (err) {
       expect(err).toBeInstanceOf(NotFoundException);

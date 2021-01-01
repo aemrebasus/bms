@@ -15,9 +15,10 @@ import { User } from '../resources/users';
       models: [User, Product],
       autoLoadModels: true,
       sync: {
+        logging: false,
         // Set them to false in testing.
-        // alter: true,
-        // force: true,
+        alter: true,
+        force: true,
       },
     }),
   ],

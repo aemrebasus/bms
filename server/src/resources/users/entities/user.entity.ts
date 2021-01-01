@@ -66,4 +66,10 @@ export class User extends Model<User> {
     },
   })
   organization: string;
+
+  @Column({
+    defaultValue: false,
+    type: DataType.BOOLEAN,
+  })
+  active: boolean;
 }

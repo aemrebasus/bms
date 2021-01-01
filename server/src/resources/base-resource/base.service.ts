@@ -5,47 +5,71 @@ import {
   FindOptions,
   UpdateOptions,
 } from 'sequelize';
-import { NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 
 export class BaseEntity extends Model<any, any> {}
 
 export class BaseService {
-  constructor(private repository: typeof BaseEntity) {}
+  constructor(private repository: typeof BaseEntity | any) {}
 
   async create(entity: any, createOptions?: CreateOptions) {
-    const result = await this.repository.create(entity, createOptions);
-    if (result) {
-      return result;
+    try {
+      const result = await this.repository.create(entity, createOptions);
+      if (result) {
+        return result;
+      }
+    } catch (err) {
+      if (err?.original?.detail) {
+        const message = err.original.detail;
+        throw new HttpException(message, HttpStatus.NOT_ACCEPTABLE);
+      }
+      throw err;
     }
   }
 
   async findAll(findOptions?: FindOptions) {
-    const result = await this.repository.findAll(findOptions);
+    const result = await this.repository.findAll({
+      ...findOptions,
+      mapToModel: true,
+    });
     if (result && result.length > 0) {
       return result;
     }
     throw new NotFoundException();
   }
 
-  findOne(findOptions: FindOptions) {
-    return this.repository.findOne(findOptions);
-  }
-
-  async findOneById(id: number) {
-    const result = await this.repository.findOne({ where: { id } });
+  async findOne(findOptions: FindOptions) {
+    const result = await this.repository.findOne({ ...findOptions });
     if (result) {
-      console.log('===================  result>', result);
-      return result;
+      return result.get();
     }
     throw new NotFoundException();
   }
 
+  async findOneById(id: number) {
+    return await this.repository.findOne({ where: { id } });
+  }
+
   update(updated: any, updateOptions?: UpdateOptions) {
-    return this.repository.update(updated, updateOptions);
+    try {
+      return this.repository.update(updated, updateOptions);
+    } catch (err) {
+      const message = err.original
+        ? err.original.detail || err.msg || err.messages
+        : 'Probably Validation Error';
+      throw new HttpException(message, HttpStatus.NOT_ACCEPTABLE);
+    }
   }
 
   updateById(updated: any, id: number) {
-    return this.repository.update(updated, { where: { id } });
+    try {
+      return this.repository.update(updated, { where: { id } });
+    } catch (err) {
+      const message = err.original
+        ? err.original.detail || err.msg || err.messages
+        : 'Probably Validation Error';
+      throw new HttpException(message, HttpStatus.NOT_ACCEPTABLE);
+    }
   }
 
   remove(destroyOptions: DestroyOptions) {
