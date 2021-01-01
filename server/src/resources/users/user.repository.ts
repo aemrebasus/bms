@@ -1,5 +1,5 @@
 import { ValueProvider } from '@nestjs/common';
-import { createRepository } from 'src/utils';
+import { createRepository } from '../../utils';
 import { User } from './entities/user.entity';
 
 export const USER_REPOSITORY = 'USER_REPOSITORY';

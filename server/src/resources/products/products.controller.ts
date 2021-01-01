@@ -1,6 +1,5 @@
 import { ProductsService } from './products.service';
 import { ApiTags } from '@nestjs/swagger';
-import { BaseController } from '../base-resource/base.controller';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindOptions } from 'sequelize/types';
 import {
@@ -22,9 +21,8 @@ import {
 import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
-@ApiTags('products')
-export class ProductsController
-  implements BaseController<CreateProductDto, CreateProductDto> {
+@ApiTags('Products Controller')
+export class ProductsController {
   constructor(private service: ProductsService) {}
 
   @Post()

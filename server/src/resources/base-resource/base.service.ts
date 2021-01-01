@@ -5,6 +5,7 @@ import {
   FindOptions,
   UpdateOptions,
 } from 'sequelize';
+import { NotFoundException } from '@nestjs/common';
 
 export class BaseEntity extends Model<any, any> {}
 
@@ -12,19 +13,31 @@ export class BaseService {
   constructor(private repository: typeof BaseEntity) {}
 
   async create(entity: any, createOptions?: CreateOptions) {
-    return await this.repository.create(entity, createOptions);
+    const result = await this.repository.create(entity, createOptions);
+    if (result) {
+      return result;
+    }
   }
 
   async findAll(findOptions?: FindOptions) {
-    return this.repository.findAll(findOptions);
+    const result = await this.repository.findAll(findOptions);
+    if (result && result.length > 0) {
+      return result;
+    }
+    throw new NotFoundException();
   }
 
   findOne(findOptions: FindOptions) {
     return this.repository.findOne(findOptions);
   }
 
-  findOneById(id: number) {
-    return this.repository.findOne({ where: { id } });
+  async findOneById(id: number) {
+    const result = await this.repository.findOne({ where: { id } });
+    if (result) {
+      console.log('===================  result>', result);
+      return result;
+    }
+    throw new NotFoundException();
   }
 
   update(updated: any, updateOptions?: UpdateOptions) {

@@ -2,7 +2,6 @@
  * Sample Controller Desing.
  */
 
-import { BaseController } from '../base-resource/base.controller';
 import { FindOptions } from 'sequelize/types';
 import { Body, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import {
@@ -13,8 +12,7 @@ import {
 } from '@nestjs/swagger';
 import { BaseService } from './base.service';
 
-export class SampleController<CreateDTO, UpdateDTO>
-  implements BaseController<CreateDTO, UpdateDTO> {
+export class SampleController<CreateDTO, UpdateDTO> {
   constructor(private service: BaseService) {}
 
   @Post()

@@ -6,7 +6,7 @@ import { PRODUCT_REPOSITORY } from './product.repository';
 @Injectable()
 export class ProductsService extends BaseService {
   constructor(
-    @Inject(PRODUCT_REPOSITORY) private productRepository: typeof Product,
+    @Inject(PRODUCT_REPOSITORY) public productRepository: typeof Product,
   ) {
     super(productRepository);
   }

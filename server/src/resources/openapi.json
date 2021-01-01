@@ -1,0 +1,422 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Business Management",
+        "description": "Business Management API",
+        "version": "v1",
+        "contact": {}
+    },
+    "tags": [
+        {
+            "name": "BMS API Specifications",
+            "description": ""
+        }
+    ],
+    "servers": [],
+    "components": {
+        "schemas": {
+            "CreateUserDto": {
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 2,
+                        "maxLength": 255
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 2,
+                        "maxLength": 255
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 255
+                    },
+                    "permissions": {
+                        "type": "array",
+                        "default": [
+                            "guest"
+                        ]
+                    },
+                    "subscriptions": {
+                        "type": "array",
+                        "default": [
+                            "guest"
+                        ]
+                    },
+                    "organization": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "email",
+                    "password",
+                    "permissions",
+                    "subscriptions",
+                    "organization"
+                ]
+            },
+            "UpdateUserDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateProductDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "UpdateProductDto": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    "paths": {
+        "/api/v1/ping": {
+            "get": {
+                "operationId": "AppController_ping",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Server is up."
+                    }
+                },
+                "tags": [
+                    "Ping"
+                ]
+            }
+        },
+        "/api/v1/users": {
+            "post": {
+                "operationId": "UsersController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized Request"
+                    },
+                    "406": {
+                        "description": "Invalid Input"
+                    }
+                },
+                "tags": [
+                    "Users Controller"
+                ]
+            },
+            "get": {
+                "operationId": "UsersController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "204": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthorized Request"
+                    }
+                },
+                "tags": [
+                    "Users Controller"
+                ]
+            },
+            "put": {
+                "operationId": "UsersController_update",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Updated"
+                    },
+                    "401": {
+                        "description": "Unauthorized Request"
+                    }
+                },
+                "tags": [
+                    "Users Controller"
+                ]
+            }
+        },
+        "/api/v1/users/{id}": {
+            "get": {
+                "operationId": "UsersController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "204": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthorized Request"
+                    }
+                },
+                "tags": [
+                    "Users Controller"
+                ]
+            },
+            "put": {
+                "operationId": "UsersController_updateById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Updated"
+                    },
+                    "401": {
+                        "description": "Unauthorized Request"
+                    }
+                },
+                "tags": [
+                    "Users Controller"
+                ]
+            },
+            "delete": {
+                "operationId": "UsersController_removeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Deleted"
+                    },
+                    "401": {
+                        "description": "Unauthorized Request"
+                    }
+                },
+                "tags": [
+                    "Users Controller"
+                ]
+            }
+        },
+        "/api/v1/products": {
+            "post": {
+                "operationId": "ProductsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProductDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Record has been created successfuly."
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "tags": [
+                    "Products Controller"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "204": {
+                        "description": "Records are not found."
+                    },
+                    "403": {
+                        "description": "forbidden"
+                    }
+                },
+                "tags": [
+                    "Products Controller"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsController_update",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProductDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Record has been updated successfuly."
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "tags": [
+                    "Products Controller"
+                ]
+            }
+        },
+        "/api/v1/products/{id}": {
+            "get": {
+                "operationId": "ProductsController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "204": {
+                        "description": "Records are not found."
+                    },
+                    "403": {
+                        "description": "forbidden"
+                    }
+                },
+                "tags": [
+                    "Products Controller"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsController_updateById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProductDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Record has been created successfuly."
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "tags": [
+                    "Products Controller"
+                ]
+            },
+            "delete": {
+                "operationId": "ProductsController_removeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Record has been deleted successfuly."
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "tags": [
+                    "Products Controller"
+                ]
+            }
+        }
+    }
+}
