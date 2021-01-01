@@ -1,6 +1,5 @@
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { async } from 'rxjs';
 import { DatabaseModule } from '../database/database.module';
 import { CreateUserDto, UsersModule } from '../resources/users';
 import { AuthController } from './auth.controller';

@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import {
+  ApiSecurity,
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiNotAcceptableResponse,
@@ -17,17 +18,27 @@ import {
   ApiOkResponse,
   ApiTags,
   ApiUnauthorizedResponse,
+  ApiCookieAuth,
+  ApiOAuth2,
+  ApiBasicAuth,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { FindOptions } from 'sequelize/types';
 import { UsersService } from './users.service';
+import { HasPermission } from 'src/auth/permission.decorator';
+import { JWT_TOKEN_KEY } from 'src/auth/auth.consts';
 
 @Controller('users')
 @ApiTags('Users Controller')
+@ApiCookieAuth(JWT_TOKEN_KEY)
+@ApiBearerAuth('Bearer')
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Post()
+  @HasPermission(['user:create'])
+  @ApiOAuth2(['user:create'], 'permissions')
   @ApiCreatedResponse({ description: 'Created' })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized Request',

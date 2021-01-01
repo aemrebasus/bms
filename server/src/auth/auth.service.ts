@@ -8,8 +8,8 @@ import { compare, genSalt, hash } from 'bcrypt';
 export class AuthService {
   constructor(private userService: UsersService, private jwt: JwtService) {}
 
-  async verifyToken(token: string) {
-    return this.jwt.verify(token);
+  async verifyToken(token: string): Promise<CreateUserDto> {
+    return await this.jwt.verify(token);
   }
 
   private async verifyUserCredentials(userCredentials: UserCredentials) {

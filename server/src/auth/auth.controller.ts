@@ -17,11 +17,19 @@ import { CreateUserDto } from '../resources/users';
 import { AuthService } from './auth.service';
 import { UserCredentials } from './user.credentials';
 import { Request, Response } from 'express';
+import { HasPermission } from './permission.decorator';
+import { Public } from './public.decorator';
 
 @Controller('auth')
 @ApiTags('Auth Controller')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  @HasPermission(['sr'])
+  @Get('secured')
+  async securedRoute() {
+    return 'secured';
+  }
 
   @Get('verify')
   async isAuth(@Req() req: Request) {
@@ -31,6 +39,7 @@ export class AuthController {
     }
   }
 
+  @Public()
   @Post('login')
   @ApiAcceptedResponse()
   @ApiNotAcceptableResponse()
@@ -41,6 +50,7 @@ export class AuthController {
     res.status(HttpStatus.ACCEPTED).end();
   }
 
+  @Public()
   @Post('subscribe')
   @ApiCreatedResponse()
   @ApiNotAcceptableResponse()
