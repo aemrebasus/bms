@@ -8,6 +8,10 @@ import { compare, genSalt, hash } from 'bcrypt';
 export class AuthService {
   constructor(private userService: UsersService, private jwt: JwtService) {}
 
+  async verifyToken(token: string) {
+    return this.jwt.verify(token);
+  }
+
   private async verifyUserCredentials(userCredentials: UserCredentials) {
     let result = await this.userService.findByUserName(
       userCredentials.username,
@@ -41,7 +45,7 @@ export class AuthService {
 
     const createdUser = await this.userService.create({
       ...newUser,
-      // active: true,
+      active: true,
       password: encodedPassword,
     });
 

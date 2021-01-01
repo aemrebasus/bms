@@ -1,12 +1,13 @@
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { async } from 'rxjs';
 import { DatabaseModule } from '../database/database.module';
 import { CreateUserDto, UsersModule } from '../resources/users';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 
-describe('AuthService', () => {
-  let controller: AuthController;
+describe('Auth', () => {
+  let authService: AuthService;
 
   const userData: CreateUserDto = {
     password: 'password',
@@ -34,23 +35,22 @@ describe('AuthService', () => {
       controllers: [AuthController],
       providers: [AuthService],
     }).compile();
+    authService = module.get<AuthService>(AuthService);
 
-    controller = module.get<AuthController>(AuthController);
+    await authService.subscribe(userData);
   });
 
   it('should subscribe', async () => {
-    try {
-      const result = await controller.subscribe(userData);
-      expect(true).toBe(true);
-    } catch (err) {
-      console.log('Error', err);
-    }
+    const result = await authService.subscribe(userData);
+    expect(result.username).toBe(userData.username);
   });
 
-  it('should login', () => {
-    controller.login({
+  it('should login', async () => {
+    const result = await authService.login({
       username: userData.username,
       password: userData.password,
     });
+
+    expect(result).toBeTruthy();
   });
 });

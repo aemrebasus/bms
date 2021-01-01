@@ -23,7 +23,6 @@ import { AuthModule } from './auth/auth.module';
     DatabaseModule,
     AuthModule,
   ],
-
   controllers: [AppController],
   providers: [AppService],
 })

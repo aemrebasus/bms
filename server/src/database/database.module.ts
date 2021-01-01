@@ -14,8 +14,8 @@ import { User } from '../resources/users';
       password: 'password',
       models: [User, Product],
       autoLoadModels: true,
+      logging: false,
       sync: {
-        logging: false,
         // Set them to false in testing.
         alter: true,
         force: true,
