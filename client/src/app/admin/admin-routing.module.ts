@@ -25,6 +25,7 @@ const routes: Routes = [
       {
         path: '**',
         component: PageNotFoundComponent,
+        data: { status: 401 },
       },
     ],
   },
