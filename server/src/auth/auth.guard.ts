@@ -27,7 +27,16 @@ export class AuthGuard implements CanActivate {
     }
 
     // Retrive Token
-    const token = context.switchToHttp().getRequest().cookies[JWT_TOKEN_KEY];
+    const cookieToken = context.switchToHttp().getRequest().cookies[
+      JWT_TOKEN_KEY
+    ];
+
+    const bearerToken = context
+      .switchToHttp()
+      .getRequest()
+      .headers['authorization']?.split(' ')[1];
+
+    const token = cookieToken || bearerToken;
 
     if (!token) {
       return false;

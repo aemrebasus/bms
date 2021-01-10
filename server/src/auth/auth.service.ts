@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto, UsersService } from '../resources/users';
 import { UserCredentials } from './user.credentials';
@@ -9,7 +14,11 @@ export class AuthService {
   constructor(private userService: UsersService, private jwt: JwtService) {}
 
   async verifyToken(token: string): Promise<CreateUserDto> {
-    return await this.jwt.verify(token);
+    try {
+      return await this.jwt.verify(token);
+    } catch (err) {
+      throw new ForbiddenException();
+    }
   }
 
   private async verifyUserCredentials(userCredentials: UserCredentials) {
