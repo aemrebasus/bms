@@ -12,9 +12,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NavigationComponent } from './navigation/navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [DashboardComponent, NavigationComponent],
+  declarations: [
+    DashboardComponent,
+    NavigationComponent,
+    PageNotFoundComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -28,6 +33,6 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     MatMenuModule,
   ],
-  exports: [DashboardComponent, NavigationComponent],
+  exports: [DashboardComponent, NavigationComponent, PageNotFoundComponent],
 })
 export class SharedModule {}
