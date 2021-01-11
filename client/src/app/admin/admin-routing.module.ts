@@ -13,20 +13,19 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        data: { animation: 'DashboardPage' },
       },
       {
         path: 'config',
         component: ConfigComponent,
+        data: { animation: 'ConfigPage' },
       },
       {
         path: 'dashboard',
         component: DashboardComponent,
+        data: { animation: 'DashboardPage' },
       },
-      {
-        path: '**',
-        component: PageNotFoundComponent,
-        data: { status: 401 },
-      },
+      { path: '**', component: PageNotFoundComponent },
     ],
   },
 ];

@@ -9,10 +9,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
 import { NavigationComponent } from './navigation/navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    MatBadgeModule,
+    MatTooltipModule,
   ],
   exports: [DashboardComponent, NavigationComponent, PageNotFoundComponent],
 })

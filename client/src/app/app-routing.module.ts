@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PublicComponent } from './public/public.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'public', pathMatch: 'full' },
   {
-    path: '',
+    path: 'public',
     loadChildren: () =>
       import('./public/public.module').then((m) => m.PublicModule),
   },
@@ -12,6 +13,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 
